@@ -62,8 +62,7 @@ ul{
 .card_title:before{
   display: inline-block;
   width: 1em;
-  content: '▲';
-  transform: rotate(90deg);
+  content: '▶';
 }
 .card_title-is-open:before{
   content: '▼'
@@ -76,5 +75,14 @@ ul{
 .checklist_task-remove:after{
   display: inline-block;
   color: #d66;
-  content: '+'
+  content: '×';
+  margin-left: 10px;
+  font-size: 20px;
+}
+.checklist-add-task{
+  border: 1px solid #bbb;
+  width: 95%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 3px;
 }

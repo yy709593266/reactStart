@@ -5,7 +5,7 @@ let config = {
   performance: {
     hints: false
   },
-  entry: __dirname + '/app/App.js',
+  entry: __dirname + '/src/App.js',
   output: {
     path: __dirname,
     filename: 'bundle.js'
