@@ -2,18 +2,36 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
 class CheckList extends Component {
+  //添加任务之前进行一些预处理操作,例如检查用户是否按下了回车键以及添加完成后清空输入文本框等
+  checkInputKeyPress(evt){
+    if(evt.key === 'Enter'){
+      this.props.taskCallbacks.add(this.props.cardId, evt.target.value)
+      evt.target.value = ''
+    }
+  }
   render(){
-    let tasks = this.props.tasks.map(task=>{
-      return <li key={task.id} className="checklist_task">
-        <input type="checkbox" defaultChecked={task.done} />
-        {task.name}
-        <a href="#" className="checklist_task-remove" />
-      </li>
+    let tasks = this.props.tasks.map((task, taskIndex)=>{
+      return (
+        <li key={task.id} className="checklist_task">
+          <input 
+            type="checkbox" 
+            checked={task.done} 
+            onChange={this.props.taskCallbacks.toggle.bind(null, this.props.cardId, task.id, taskIndex)}/>
+          {task.name}{' '}
+          <a 
+            href="#" 
+            className="checklist_task-remove" 
+            onClick={this.props.taskCallbacks.delete.bind(null, this.props.cardId, task.id, taskIndex)}/>
+        </li>)
     })
     return (
       <div className="checklist">
         <ul>{tasks}</ul>
-        <input type="text" className="checklist-add-task" placeholder="Type then hit Enter to add a task" />
+        <input 
+          type="text" 
+          className="checklist-add-task" 
+          placeholder="Type then hit Enter to add a task" 
+          onKeyPress={this.checkInputKeyPress.bind(this)}/>
       </div>
     )
   }
@@ -21,6 +39,7 @@ class CheckList extends Component {
 
 CheckList.propTypes = {
   cardId: PropTypes.number,
-  tasks: PropTypes.arrayOf(PropTypes.object)
+  tasks: PropTypes.array,
+  taskCallbacks: PropTypes.object
 }
 export default CheckList

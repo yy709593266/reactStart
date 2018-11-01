@@ -104,7 +104,7 @@ return (
 
 以上代码将渲染一个初始值为空的输入域，任何用户输入都会立即反映到渲染后的元素上，如果想要为非受控表单元素设置初始值，应使用`defaultValue`属性而非`value`属性
 
-#### Why `React-fetch`
+#### What is `React-fetch`
 
 `fetch`在React中相当于`XMLHttpRequest`，它提供了许多与`XMLHttpRequest`相同的功能，但被设计成更具可拓展性和高效性。
 
@@ -144,4 +144,26 @@ fetch(url).then(function(response) {
 
 * 语法简洁，更加语义化
 * 基于标准`Promise`实现，支持`async/await`
+
+#### What is `react-addon-update`
+`react-addon-update`主要是用于在react中进行对数据的处理，容易忘记的几种方法如下：
+
+```js
+//首先是引入文件
+import update from 'react-addons-update'; // ES6
+var update = require('react-addons-update'); // ES5 with npm
+
+//$splice
+//可以解释为：从第2个下标开始，删除一个元素，然后再插入3和4这两个元素到后面
+let initialArray=[1,2,'a'];
+let newArray=update(initialArray,{$splice:[[2,1,3,4]});//[1,2,3,4]
+```
+
+```js
+//$apply
+//官方解释:passes in the current value to the function and updates it with the new returned value
+//在下解释:就是更新传进去的值
+{$apply: function}
+
+```
 

@@ -5,7 +5,15 @@ import PropTypes from 'prop-types'
 class List extends Component {
   render(){
     let cards = this.props.cards.map((card)=>{
-      return <Card key={card.id} id={card.id} title={card.title} description={card.description} color={card.color} tasks={card.tasks} />
+      // 可以使用展开操作符直接展示除了key和taskCallbacks之外的属性:{...card}
+      return <Card 
+                key={card.id} 
+                id={card.id} 
+                title={card.title} 
+                description={card.description} 
+                color={card.color} 
+                tasks={card.tasks} 
+                taskCallbacks={this.props.taskCallbacks}/>
     })
     return (
       <div className='list'>
@@ -18,7 +26,8 @@ class List extends Component {
 
 List.propTypes = {
   title: PropTypes.string.isRequired,
-  cards: PropTypes.arrayOf(PropTypes.object)
+  cards: PropTypes.arrayOf(PropTypes.object),
+  taskCallbacks: PropTypes.object
 }
 
 export default List
