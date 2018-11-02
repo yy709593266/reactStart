@@ -211,3 +211,44 @@ export default DragDropContext(HTML5Backend)(Container)
 ```
 
 这里导入了`React DnD`的`HTML5`后端（不同的设备导入不同的`backend`）
+
+#### 动画`react-addons-css-transition-group`
+
+将需要动画的元素包起来先
+
+```js
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+//...
+
+<ReactCSSTransitionGroup 
+	transitionName="toggle" 
+	transitionEnterTimeout={250} 
+	transitionLeaveTimeout={250}>
+    {cardDetails}
+</ReactCSSTransitionGroup>
+```
+
+再去样式表中添加相应的样式类，`react-addons-css-transition-group`自会找到相应的样式在适当的时候展示相应的效果
+
+```css
+//style.css
+.toggle-enter{
+  max-height: 0;
+  overflow: hidden;
+}
+.toggle-enter.toggle-enter-active{
+  max-height: 300px;
+  overflow: hidden;
+  transition: max-height .25s ease-in;
+}
+.toggle-leave{
+  max-height: 300px;
+  overflow: hidden;
+}
+.toggle-leave.toggle-leave-active{
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .25s ease-out;
+}
+```
+
