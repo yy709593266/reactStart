@@ -1,6 +1,9 @@
 ### React 开发实战--Notes
 
+[整本书的实例代码](https://github.com/pro-react)
+
 #### React中的事件
+
 使用HTML标签提供的事件处理API：`onclick`，`onfocus`充满了令人讨厌的副作用：
 * `onclick`添加的事件处理函数是全局环境下执行的，污染了全局变量
 * 给很多DOM元素添加onclick事件可能会影响网页的性能，毕竟网页需要的事件处理函数越多性能越低
@@ -167,3 +170,44 @@ let newArray=update(initialArray,{$splice:[[2,1,3,4]});//[1,2,3,4]
 
 ```
 
+#### 拖放`react-dnd`
+
+核心API
+
+- **DragSource** 用于包装你需要拖动的组件，使组件能够被拖拽（make it draggable）
+- **DropTarget** 用于包装接收拖拽元素的组件，使组件能够放置（dropped on it）
+- **DragDropContex** 用于包装拖拽根组件，`DragSource` 和 `DropTarget` 都需要包裹在`DragDropContex`内
+- **DragDropContextProvider** 与 `DragDropContex` 类似，用 `DragDropContextProvider` 元素包裹拖拽根组件。
+
+使用`DragSource`和`DragTarget`来创建高阶组件需要提供三个参数：`type`、`spec`、`collect`函数：
+
+1、`type`
+
+​	指定组件的名称
+
+2、`spec`对象
+
+​	描述增强组件是如何响应拖拽和放置事件，它是包含了若干会在拖拽交互发生时被调用的函数
+
+3、`collect`函数：
+
+​	`React DnD`并非直接在你的组件中注入所有的`props`属性，通过`collect`函数让你来控制哪些属性需要进行注入以及如何进行注入。这种方式提供了强大能力，包括在注入前对属性进行预处理和改变名称等。当拖放交互发生时，`React DnD`库会调用你的组件中定义的`collect`函数并传入两个参数`connector`和`monitor`，返回一个对象，这个对象会注入到组件的`props`中。
+
+​	`connector`会在你的组件渲染时用于界定组件DOM的范围，对于`dragSource`这部分DOM用来在拖拽过程中对组件进行呈现，对于`dropTarget`这个DOM作为可放置范围；
+
+​	`monitor`用于查看当前的拖拽情况，可以创建诸如`isDragging`或者`canDrop`的属性，如果需要根据不同值来渲染不用内容就很有用了。
+
+[详解参考](https://segmentfault.com/a/1190000014723549)
+
+在`Container.js`文件中
+
+```js
+import {DragDropContext} from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
+
+...
+
+export default DragDropContext(HTML5Backend)(Container)
+```
+
+这里导入了`React DnD`的`HTML5`后端（不同的设备导入不同的`backend`）

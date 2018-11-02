@@ -1,11 +1,12 @@
 {
-  "name": "todoList",
+  "name": "react-drag",
   "version": "1.0.0",
-  "description": "待办事项管理",
+  "description": "拖拽",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --progress"
+    "start": "webpack-dev-server --progress",
+    "build": "NODE_ENV=production webpack -p --progress --colors"
   },
   "keywords": [
     "react"

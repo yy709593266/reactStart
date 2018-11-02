@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import CheckList from './CheckList'
-import marked from 'marked'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group' //react的css动画
+import marked from 'marked' //marddown使用
 import PropTypes from 'prop-types'
 
 let titlePropType = (props, propName, componentName) => {
