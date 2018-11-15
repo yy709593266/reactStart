@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router-dom'
 import CheckList from './CheckList'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group' //react的css动画
 import marked from 'marked' //marddown使用
@@ -47,8 +48,19 @@ class Card extends Component {
     return (
       <div className="card">
         <div style={sideColor}></div>
+        <div className="card_edit">
+          <Link to={{
+            pathname: `/edit/${this.props.id}`,
+            query: this.props
+          }}>&#9998;</Link>
+        </div>
         <div className={this.state.showDetails?'card_title card_title-is-open':'card_title'} onClick={this.toggleDetails.bind(this)}>{this.props.title}</div>
-        {cardDetails}
+        <ReactCSSTransitionGroup
+          transitionName="toggle"
+          transitionEnterTimeout={250}
+          transitionLeaveTimeout={250}>
+          {cardDetails}
+        </ReactCSSTransitionGroup>
       </div>
     )
   }

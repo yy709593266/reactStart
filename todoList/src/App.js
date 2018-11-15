@@ -1,6 +1,13 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import BoardContainer from './BoardContainer'
+import {render} from 'react-dom'
+import {BrowserRouter as Router, Route, Link, Switch} from 'react-router-dom'
+import {renderRoutes} from 'react-router-config'
+import routes from '../router/router.js'
 
-ReactDOM.render(<BoardContainer />, document.getElementById('root'))
+render((
+  <Router>
+    {renderRoutes(routes)}
+  </Router>
+), document.getElementById('root'))
+
 

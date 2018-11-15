@@ -6,14 +6,16 @@ class List extends Component {
   render(){
     let cards = this.props.cards.map((card)=>{
       // 可以使用展开操作符直接展示除了key和taskCallbacks之外的属性:{...card}
-      return <Card 
+      return <Card
                 key={card.id} 
                 id={card.id} 
                 title={card.title} 
+                status={card.status}
                 description={card.description} 
                 color={card.color} 
                 tasks={card.tasks} 
-                taskCallbacks={this.props.taskCallbacks}/>
+                taskCallbacks={this.props.taskCallbacks}
+                cardCallbacks={this.props.cardCallbacks}/>
     })
     return (
       <div className='list'>

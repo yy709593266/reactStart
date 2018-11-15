@@ -252,3 +252,56 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 }
 ```
 
+#### 路由基础
+
+这里写的路由当然是最新的路由方式了。
+
+`Facebook`对`react`的持续改进，在4.0版本对其进行大量的优化，之前使用路由引入的包是`react-router`，改版之后需要引入的包是`react-router-dom`。主要理解的三个概念有：`Router`、`Route`和`Link`。
+
+* `Router` 可以将它看成是路由的外层盒子，里面用来放置我们的单页应用的路由和路由组件
+* `Link` 路由中点击切换到哪一个组件的链接
+* `Route` 代表了路由界面，接收两个参数，一个`path`代表路径，一个`component`代表路径所对应的界面。它的主要作用是当一个location匹配到路由中的`path`时，渲染某些`UI`。
+
+```react
+import React, {Component} from 'react'
+import {render} from 'react-dom'
+import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom'
+
+import About from './About'
+import Repos from './Repos'
+import Home from './Home'
+
+class App extends Component {
+  render(){
+    return(
+      <Router>
+        <div>
+          <ul>
+            <li><Link to="/home">Home</Link></li>
+            <li><Link to="/about">About</Link></li>
+            <li><Link to="/repos">Repos</Link></li>
+          </ul>
+          <hr />
+          <Route path="/home" component={Home} />
+          <Route path="/about" component={About} />
+          <Route path="/repos" component={Repos} />
+        </div>
+      </Router>
+    )
+  }
+}
+
+render(<App />, document.getElementById('root'))
+```
+
+[路由基础参考](https://blog.csdn.net/mapbar_front/article/details/72811425)
+
+
+
+#### 存在的问题
+
+整本书通过演示一个实例demo来学习`React`的相关知识点，课本是很老的`React`版本了，当我学习的时候它已经更新到`4.x`的版本了，网上大神们都说这个版本跟之前的差异很大，是的，我也发现了。所以，做完demo后还存在着很多的问题等着我进一步学习来得到解决：
+
+* 刷新页面就报错了页面就`cannot Get/`了
+* 点击后的路由样式不知道怎么设置
+* 子路由路径名一定要包含父路由么，我想自定义一个不一样的子路由名

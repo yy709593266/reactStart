@@ -21,6 +21,10 @@ let config = {
         }
       }
     ]
+  },
+  devServer: {
+    inline: true,
+    historyApiFallback: true  //加上这个刷新新的路由就不用报错啦
   }
 }
 

@@ -20,10 +20,61 @@ class BoardContainer extends Component {
   }
   componentDidMount(){
     // fetch(API_URL + '/card', {headers: API_HEADERS})
-    fetch('http://localhost:8080/mock/cardsList.json', {headers: API_HEADERS})
+    fetch('../mock/cardsList.json', {headers: API_HEADERS})
     .then(res=>res.json())
     .then(resData=>this.setState({cards: resData}))
     .catch(err=>console.log('Error fetching and parsing data', err))
+  }
+  //添加卡片
+  addCard(card){
+    let prevState = this.state
+    if(card.id===null){
+      let card = Object.assign({}, card, {id: Date.now()})
+    }
+    let nextState = update(this.state.cards, {$push: [card]})
+    this.setState({cards: nextState})
+    //调用添加接口
+    /* fetch(`${API_URL}/cards`, {
+      method: 'post',
+      headers: API_HEADERS,
+      body: JSON.stringify(card)
+    })
+    .then(res=>{
+      if(res.ok){
+        return res.json()
+      }else {
+        throw new Error('Server response was not OK')
+      }
+    })
+    .then(resData=>{
+      card.id = resData.id
+      this.setState({cards: nextState})
+    })
+    .catch(err=>{
+      this.setState(prevState)
+    }) */
+  }
+  //更新卡片信息
+  updateCard(card){
+    let prevState = this.state
+    let cardIndex = this.state.cards.findIndex(c=>c.id===card.id)
+    let nextState = update(this.state.cards, {[cardIndex]: {$set: card}})
+    this.setState({cards: nextState})
+    //调用接口修改
+    /* fetch(`${API_URL}/cards/${card.id}`, {
+      method: 'put',
+      headers: API_HEADERS,
+      body: JSON.stringify(card)
+    })
+    .then(res=>{
+      if(!res.ok){
+        throw new Error('Server response was not OK')
+      }
+    })
+    .catch(err=>{
+      console.log('Fetch error: ', err)
+      this.setState(prevState)
+    }) */
   }
   //这里更新数据都是先UI更新,然后再发起请求保存到服务器(用户体验很好,不用等待结果)
   //但是如果服务器保存错误,就需要用到备份的state的值
@@ -106,11 +157,18 @@ class BoardContainer extends Component {
     }) */
   }
   render(){
-    return (<Board cards={this.state.cards} taskCallbacks={{
-      toggle: this.toggleTask.bind(this),
-      delete: this.deleteTask.bind(this),
-      add: this.addTask.bind(this)
-    }}/>)
+    return (<Board 
+      routeParams={this.props} 
+      cards={this.state.cards} 
+      taskCallbacks={{
+        toggle: this.toggleTask.bind(this),
+        delete: this.deleteTask.bind(this),
+        add: this.addTask.bind(this)
+      }} 
+      cardCallbacks={{
+        addCard: this.addCard.bind(this),
+        updateCard: this.updateCard.bind(this)
+      }}/>)
   }
 }
 
