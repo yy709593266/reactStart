@@ -293,8 +293,9 @@ class App extends Component {
 
 render(<App />, document.getElementById('root'))
 ```
-
 [路由基础参考](https://blog.csdn.net/mapbar_front/article/details/72811425)
+
+有没有什么方法可以将路由单独写入一个文件呢?这里就需要用到`react-router-config`,具体使用已经在项目todoList中实现了。
 
 
 
