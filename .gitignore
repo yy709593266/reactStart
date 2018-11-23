@@ -3,3 +3,5 @@ helloReact/node_modules
 todoList/node_modules
 reactDrag/node_modules
 reactRouter/node_modules
+todoListFlux/node_modules
+reactFlux/node_modules
