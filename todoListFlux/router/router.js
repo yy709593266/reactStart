@@ -1,6 +1,6 @@
-import BoardContainer from '../src/component/BoardContainer'
-import NewCard from '../src/component/addEditCard/NewCard'
-import EditCard from '../src/component/addEditCard/EditCard'
+import BoardContainer from '../src/components/BoardContainer'
+import NewCard from '../src/components/addEditCard/NewCard'
+import EditCard from '../src/components/addEditCard/EditCard'
 
 const routes = [
   {

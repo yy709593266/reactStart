@@ -1,20 +1,30 @@
+//dispatcher作用将action派发到store
+
 import {Dispatcher} from 'flux'
+import CardStore from './stores/CardStore'
 
-class AppDispatcher extends Dispatcher{
-  dispatchAsync(promise, types, payload){
-    const {request, success, failure} = types
-    this.dispatch({type: request, payload: Object.assign({}, payload)})
-    promise.then(
-      res=>this.dispatch({
-        type: success,
-        payload: Object.assign({}, payload, {res})
-      }),
-      err=>this.dispatch({
-        type: failure,
-        payload: Object.assign({}, payload, {err})
-      })
-    )
+let AppDispatcher = new Dispatcher()
+AppDispatcher.register(action=>{
+  switch (action.actionType) {
+    case 'ADD_CARD':
+      CardStore.addCardHandle(action.card)
+      break
+    case 'UPDATE_CARD':
+      CardStore.updateCardHandle(action.card)
+      break
+    case 'TASK_TOGGLE':
+      CardStore.toggleTaskHandle(action.cardId, action.taskId, action.taskIndex)
+      break
+      break
+    case 'ADD_TASK':
+      CardStore.addTaskHandle(action.cardId, action.taskName)
+      break
+    case 'DELETE_TASK':
+      CardStore.deleteTaskHandle(action.cardId, action.taskId, action.taskIndex)
+      break
+    default:
+      break
   }
-}
+})
 
-export default new AppDispatcher
+module.exports = AppDispatcher
