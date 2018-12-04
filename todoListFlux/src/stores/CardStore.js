@@ -20,6 +20,15 @@ let CardStore = assign({}, EventEmitter.prototype, {
     .then(resData=>this.cards = resData)
     .catch(err=>console.log('Error fetching and parsing data', err)) */
   },
+  addChangeListener: function(cb){
+    this.on('change', cb)
+  },
+  removeChangeListener: function(cb){
+    this.removeListener('change', cb)
+  },
+  emitChange: function(){
+    this.emit('change')
+  },
   //这里更新数据都是先UI更新,然后再发起请求保存到服务器(用户体验很好,不用等待结果)
   //但是如果服务器保存错误,就需要用到备份的state的值
   //添加卡片

@@ -17,7 +17,10 @@ class BoardContainer extends Component {
     }
   }
   componentDidMount(){
-    this._onChange()
+    CardStore.addChangeListener(this._onChange.bind(this))
+  }
+  componentWillUnmount () {
+    CardStore.removeChangeListener(this._onChange.bind(this))
   }
   //添加卡片
   addCard(card){
@@ -30,7 +33,6 @@ class BoardContainer extends Component {
   //添加任务
   addTask(cardId, taskName){
     TaskAction.addTask(cardId, taskName)
-    this._onChange()
   }
   //删除任务
   deleteTask(cardId, taskId, taskIndex){
@@ -39,7 +41,6 @@ class BoardContainer extends Component {
   //勾选和取消勾选
   toggleTask(cardId, taskId, taskIndex){
     TaskAction.toggleTask(cardId, taskId, taskIndex)
-    this._onChange()
   }
   _onChange(){
     this.setState({
