@@ -14,7 +14,7 @@
   "author": "yuanyuan",
   "license": "ISC",
   "dependencies": {
-    "marked": "^0.5.1",
+    "marked": "^1.1.1",
     "mongoose": "^5.3.7",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
